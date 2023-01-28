@@ -172,9 +172,7 @@ Sub Main()
 
 			'↓VBSの場合 ********************************
 			Quit
-
 		End If
-
 	Loop
 
 	objInput.Close
@@ -193,8 +191,7 @@ Sub Main()
 	objOutput.Close
 	Set objOutput = Nothing
 
-
-	'##################################################################################################
+	'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	Set objOutput = CreateObject("ADODB.Stream")
 	objOutput.Open
@@ -308,7 +305,6 @@ Function addLabel(s, adr)
 	
 End Function
 
-
 Function getZeroPage(s)
 
 	Dim i
@@ -421,4 +417,3 @@ Function CurDirVBA()
 	CurDirVBA = ThisWorkbook.Path
 
 End Function
-
