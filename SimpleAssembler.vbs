@@ -171,7 +171,7 @@ Sub Main()
 			'End
 
 			'↓VBSの場合 ********************************
-			Quit
+			WScript.Quit
 		End If
 	Loop
 
@@ -335,7 +335,7 @@ Function addZeroPage(s)
 	'End
 
 	'↓VBSの場合 ********************************
-	Quit
+	WScript.Quit
 	
 End Function
 
