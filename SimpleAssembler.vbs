@@ -165,7 +165,7 @@ Sub Main()
 
 		'What!?
 		Else
-			'MsgBox("unsupported opcode!")
+			MsgBox("unsupported opcode!")
 
 			'↓VBAの場合 ********************************
 			'End
