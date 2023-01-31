@@ -65,7 +65,10 @@ Sub Main()
 		If p > 0 Then
 			str = Left(str, p-1)
 		End If
-		
+
+		'タブがあったら除去
+		str = Replace(str, vbTab, "")
+
 		'前後のスペースを除去
 		str = Trim(str) 
 
