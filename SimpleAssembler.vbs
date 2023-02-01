@@ -66,8 +66,8 @@ Sub Main()
 			str = Left(str, p-1)
 		End If
 
-		'タブがあったら除去
-		str = Replace(str, vbTab, "")
+		'タブがあったら半角スペースに置き換え
+		str = Replace(str, vbTab, " ")
 
 		'前後のスペースを除去
 		str = Trim(str) 
