@@ -69,6 +69,11 @@ Sub Main()
 		'タブがあったら半角スペースに置き換え
 		str = Replace(str, vbTab, " ")
 
+		'連続する半角スペースを1つに
+		Do While Instr(str, "  ") > 0
+			str = Replace(str, "  ", " ")
+		Loop
+
 		'前後のスペースを除去
 		str = Trim(str) 
 
