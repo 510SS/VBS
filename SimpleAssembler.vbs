@@ -17,7 +17,7 @@ Call Main
 Sub Main()
 
 	Dim str, edt
-	Dim cnt, zero
+	Dim cnt, zero, line
 	Dim i, j, p
 	Dim objInput, objOutput
 
@@ -29,6 +29,7 @@ Sub Main()
 	cDir = CurDir()	
 
 	cnt = 32768 'ROMは$8000(32768)から始まっているから
+	line = 0
 
 	For i = 0 To UBound(label)
 		label(i, 0) = ""
@@ -53,6 +54,7 @@ Sub Main()
 				
 	Do Until objInput.EOS
 
+		line = line + 1
 		str = objInput.ReadText(-2)	'-2 = 1行づつ読み込む
 
 		'末尾の改行コードを除去
@@ -206,7 +208,7 @@ Sub Main()
 
 		'What!?
 		Else
-			MsgBox("unsupported opcode!:" & str)
+			MsgBox("#" & line & " - unsupported opcode!:" & str)
 
 			'↓VBAの場合 ********************************
 			'End
