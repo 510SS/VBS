@@ -325,6 +325,11 @@ Sub Main()
 			cnt = cnt + 1
 			objOutput.WriteText "C8 " & vbCrLf, 0
 
+		'TYA
+		ElseIf Left(str, 3) = "TYA" Then
+			cnt = cnt + 1
+			objOutput.WriteText "98 " & vbCrLf, 0
+
 		'What!?
 		Else
 			MsgBox("#" & line & " - unsupported opcode!:" & str)
