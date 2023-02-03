@@ -244,6 +244,11 @@ Sub Main()
 			cnt = cnt + 1
 			objOutput.WriteText "88 " & vbCrLf, 0
 
+		'INX
+		ElseIf Left(str, 3) = "INX" Then
+			cnt = cnt + 1
+			objOutput.WriteText "E8 " & vbCrLf, 0
+
 		'What!?
 		Else
 			MsgBox("#" & line & " - unsupported opcode!:" & str)
