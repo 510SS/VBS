@@ -191,6 +191,39 @@ Sub Main()
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "AC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
+		'CPX #$
+		ElseIf Left(str, 6) = "CPX #$" Then
+			cnt = cnt + 2
+			objOutput.WriteText "E0 " & Right(str, 2) & " " & vbCrLf, 0
+
+		'CPX #%
+		ElseIf Left(str, 6) = "CPX #%" Then
+			cnt = cnt + 2
+			edt = Right(str, 8)
+			objOutput.WriteText "E0 "  & Right("00" & Bin2Hex(edt), 2) & " " & vbCrLf, 0
+
+		'CPX $
+		ElseIf Left(str, 5) = "CPX $" Then
+			cnt = cnt + 3
+			edt = Right(str, 4)
+			objOutput.WriteText "EC "  & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
+		'CPX #
+		ElseIf Left(str, 5) = "CPX #" Then
+			cnt = cnt + 2
+			edt = Mid(str, 6)
+			objOutput.WriteText "E0 "  & Right("00" & Hex(edt), 2) & " " & vbCrLf, 0
+
+		'CPX
+		ElseIf Left(str, 3) = "CPX" Then
+			cnt = cnt + 3
+			zero = getZeroPage(Mid(str, 5))
+			If zero = -1 Then
+				zero = addZeroPage(Mid(str, 5))
+			End If
+			edt = Right("0000" & Hex(zero),4)
+			objOutput.WriteText "EC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
 		'STA $
 		ElseIf Left(str, 5) = "STA $" Then
 			cnt = cnt + 3
