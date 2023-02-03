@@ -239,6 +239,11 @@ Sub Main()
 			cnt = cnt + 3
 			objOutput.WriteText str & vbCrLf, 0
 
+		'DEY
+		ElseIf Left(str, 3) = "DEY" Then
+			cnt = cnt + 1
+			objOutput.WriteText "88 " & vbCrLf, 0
+
 		'What!?
 		Else
 			MsgBox("#" & line & " - unsupported opcode!:" & str)
