@@ -446,11 +446,11 @@ Function Dec2Bin(num)
 		syo = num \ 2
 		amari = num Mod 2
 		num = syo
-		bin = bin & CStr(amari)
+		bin = CStr(amari) & bin
 	Loop
 	
 	'最後に商を足す
-	Dec2Bin = bin & CStr(syo)
+	Dec2Bin = CStr(syo) & bin
 	
 End Function
 
