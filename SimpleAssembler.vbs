@@ -272,6 +272,11 @@ Sub Main()
 			cnt = cnt + 3
 			objOutput.WriteText str & vbCrLf, 0
 
+		'DEX
+		ElseIf Left(str, 3) = "DEX" Then
+			cnt = cnt + 1
+			objOutput.WriteText "CA " & vbCrLf, 0
+
 		'DEY
 		ElseIf Left(str, 3) = "DEY" Then
 			cnt = cnt + 1
@@ -281,6 +286,11 @@ Sub Main()
 		ElseIf Left(str, 3) = "INX" Then
 			cnt = cnt + 1
 			objOutput.WriteText "E8 " & vbCrLf, 0
+
+		'INY
+		ElseIf Left(str, 3) = "INY" Then
+			cnt = cnt + 1
+			objOutput.WriteText "C8 " & vbCrLf, 0
 
 		'What!?
 		Else
