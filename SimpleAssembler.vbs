@@ -3,7 +3,7 @@ Option Explicit
 '↓Libre Calc VBAの場合 ********************************
 'Option VBASupport 1
 
-Const asm = "chickenrace.asm" 'ASMはUTF-8
+Const asm = "original.asm" 'ASMはUTF-8
 Const wrk = "prg-wrk.txt"
 Const prg = "prg.txt"
 
