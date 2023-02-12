@@ -92,6 +92,8 @@ Sub Main()
 			Call addLabel(edt, cnt) 
 			objOutput.WriteText str & "#" & cnt & vbCrLf, 0 '←改行コードを付けない
 
+	'---LDA ----------------------------------------------------------------------------------------------------
+
 		'LDA #$
 		ElseIf Left(str, 6) = "LDA #$" Then
 			cnt = cnt + 2
@@ -124,6 +126,8 @@ Sub Main()
 			End If
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "AD " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
+	'---LDX ----------------------------------------------------------------------------------------------------
 
 		'LDX #$
 		ElseIf Left(str, 6) = "LDX #$" Then
@@ -158,6 +162,8 @@ Sub Main()
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "AE " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
+	'---LDY ----------------------------------------------------------------------------------------------------
+
 		'LDY #$
 		ElseIf Left(str, 6) = "LDY #$" Then
 			cnt = cnt + 2
@@ -190,6 +196,56 @@ Sub Main()
 			End If
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "AC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
+	'---STA ----------------------------------------------------------------------------------------------------
+
+		'STA $
+		ElseIf Left(str, 5) = "STA $" Then
+			cnt = cnt + 3
+			edt = Right(str, 4)
+			objOutput.WriteText "8D " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
+		'STA
+		ElseIf Left(str, 3) = "STA" Then
+			cnt = cnt + 3
+			zero = getZeroPage(Mid(str, 5))
+			If zero = -1 Then
+				zero = addZeroPage(Mid(str, 5))
+			End If
+			edt = Right("0000" & Hex(zero),4)
+			objOutput.WriteText "8D " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
+
+	'---TXA ----------------------------------------------------------------------------------------------------
+
+		'TXA
+		ElseIf Left(str, 3) = "TYA" Then
+			cnt = cnt + 1
+			objOutput.WriteText "8A " & vbCrLf, 0
+
+	'---TYA ----------------------------------------------------------------------------------------------------
+
+		'TYA
+		ElseIf Left(str, 3) = "TYA" Then
+			cnt = cnt + 1
+			objOutput.WriteText "98 " & vbCrLf, 0
+
+	'---ADC ----------------------------------------------------------------------------------------------------
+
+		'ADC #
+		ElseIf Left(str, 5) = "ADC #" Then
+			cnt = cnt + 2
+			edt = Mid(str, 6)
+			objOutput.WriteText "69 " & Right("00" & edt, 2) & " " & vbCrLf, 0
+
+	'---AND ----------------------------------------------------------------------------------------------------
+
+		'AND #
+		ElseIf Left(str, 5) = "AND #" Then
+			cnt = cnt + 2
+			edt = Mid(str, 6)
+			objOutput.WriteText "29 " & Right("00" & edt, 2) & " " & vbCrLf, 0
+
+	'---CPX ----------------------------------------------------------------------------------------------------
 
 		'CPX #$
 		ElseIf Left(str, 6) = "CPX #$" Then
@@ -224,6 +280,8 @@ Sub Main()
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "EC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
+	'---CPY ----------------------------------------------------------------------------------------------------
+
 		'CPY #$
 		ElseIf Left(str, 6) = "CPY #$" Then
 			cnt = cnt + 2
@@ -257,85 +315,64 @@ Sub Main()
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "CC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
-		'STA $
-		ElseIf Left(str, 5) = "STA $" Then
-			cnt = cnt + 3
-			edt = Right(str, 4)
-			objOutput.WriteText "8D " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
-
-		'STA
-		ElseIf Left(str, 3) = "STA" Then
-			cnt = cnt + 3
-			zero = getZeroPage(Mid(str, 5))
-			If zero = -1 Then
-				zero = addZeroPage(Mid(str, 5))
-			End If
-			edt = Right("0000" & Hex(zero),4)
-			objOutput.WriteText "8D " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
-
-		'AND #
-		ElseIf Left(str, 5) = "AND #" Then
-			cnt = cnt + 2
-			edt = Mid(str, 6)
-			objOutput.WriteText "29 " & Right("00" & edt, 2) & " " & vbCrLf, 0
-
-		'ADC #
-		ElseIf Left(str, 5) = "ADC #" Then
-			cnt = cnt + 2
-			edt = Mid(str, 6)
-			objOutput.WriteText "69 " & Right("00" & edt, 2) & " " & vbCrLf, 0
-
-		'CLC
-		ElseIf Left(str, 3) = "CLC" Then
-			cnt = cnt + 1
-			objOutput.WriteText "18 " & vbCrLf, 0
-
-		'BPL
-		ElseIf Left(str, 3) = "BPL" Then
-			cnt = cnt + 2
-			objOutput.WriteText str & "#" & cnt & vbCrLf, 0
-
-		'BNE
-		ElseIf Left(str, 3) = "BNE" Then
-			cnt = cnt + 2
-			objOutput.WriteText str & "#" & cnt & vbCrLf, 0
-
-		'JMP
-		ElseIf Left(str, 3) = "JMP" Then
-			cnt = cnt + 3
-			objOutput.WriteText str & vbCrLf, 0
+	'---DEX ----------------------------------------------------------------------------------------------------
 
 		'DEX
 		ElseIf Left(str, 3) = "DEX" Then
 			cnt = cnt + 1
 			objOutput.WriteText "CA " & vbCrLf, 0
 
+	'---DEY ----------------------------------------------------------------------------------------------------
+
 		'DEY
 		ElseIf Left(str, 3) = "DEY" Then
 			cnt = cnt + 1
 			objOutput.WriteText "88 " & vbCrLf, 0
+
+	'---INX ----------------------------------------------------------------------------------------------------
 
 		'INX
 		ElseIf Left(str, 3) = "INX" Then
 			cnt = cnt + 1
 			objOutput.WriteText "E8 " & vbCrLf, 0
 
+	'---INY ----------------------------------------------------------------------------------------------------
+
 		'INY
 		ElseIf Left(str, 3) = "INY" Then
 			cnt = cnt + 1
 			objOutput.WriteText "C8 " & vbCrLf, 0
 
-		'TXA
-		ElseIf Left(str, 3) = "TYA" Then
-			cnt = cnt + 1
-			objOutput.WriteText "8A " & vbCrLf, 0
+	'---JMP ----------------------------------------------------------------------------------------------------
 
-		'TYA
-		ElseIf Left(str, 3) = "TYA" Then
-			cnt = cnt + 1
-			objOutput.WriteText "98 " & vbCrLf, 0
+		'JMP
+		ElseIf Left(str, 3) = "JMP" Then
+			cnt = cnt + 3
+			objOutput.WriteText str & vbCrLf, 0
 
-		'What!?
+	'---BNE ----------------------------------------------------------------------------------------------------
+
+		'BNE
+		ElseIf Left(str, 3) = "BNE" Then
+			cnt = cnt + 2
+			objOutput.WriteText str & "#" & cnt & vbCrLf, 0
+
+	'---BPL ----------------------------------------------------------------------------------------------------
+
+		'BPL
+		ElseIf Left(str, 3) = "BPL" Then
+			cnt = cnt + 2
+			objOutput.WriteText str & "#" & cnt & vbCrLf, 0
+
+	'---CLC ----------------------------------------------------------------------------------------------------
+
+		'CLC
+		ElseIf Left(str, 3) = "CLC" Then
+			cnt = cnt + 1
+			objOutput.WriteText "18 " & vbCrLf, 0
+
+	'===What!? ==================================================================================================
+
 		Else
 			MsgBox("#" & line & " - unsupported opcode!:" & str)
 
@@ -385,23 +422,23 @@ Sub Main()
 		If Right(str, 1) = vbCr Then
 			str = Left(str, len(str)-1)
 		End if
-		
+
 		If Instr(str, ":") > 0 Then
 			'ラベルならスルー
-		
+
 		ElseIf Left(str, 4) = "JMP " Then
 			edt = Right("0000" & Hex(getLabel(Mid(str, 5))),4)
 			objOutput.WriteText "4C " & Right(edt, 2) & " " & Left(edt, 2) & " ", 0
-		
-		ElseIf Left(str, 4) = "BPL " Then
-			p =  Instr(str, "#")
-			edt = Mid(str, 5, p - 1 - 4) ' "BPL " の4文字分引く
-			objOutput.WriteText "10 " & signedByteHex(getLabel(edt) - Mid(str, p + 1)) & " ", 0
-			
+
 		ElseIf Left(str, 4) = "BNE " Then
 			p =  Instr(str, "#")
 			edt = Mid(str, 5, p - 1 - 4) ' "BNE " の4文字分引く
 			objOutput.WriteText "D0 " & signedByteHex(getLabel(edt) - Mid(str, p + 1)) & " ", 0
+
+		ElseIf Left(str, 4) = "BPL " Then
+			p =  Instr(str, "#")
+			edt = Mid(str, 5, p - 1 - 4) ' "BPL " の4文字分引く
+			objOutput.WriteText "10 " & signedByteHex(getLabel(edt) - Mid(str, p + 1)) & " ", 0
 
 		Else
 			objOutput.WriteText str, 0
