@@ -92,6 +92,21 @@ Sub Main()
 			Call addLabel(edt, cnt) 
 			objOutput.WriteText str & "#" & cnt & vbCrLf, 0 '←改行コードを付けない
 
+	'---.BYTE ----------------------------------------------------------------------------------------------------
+
+		'.BYTE
+		ElseIf Left(str, 5) = ".BYTE" Then
+			tmp = Split(Trim(Mid(str, 7)), ",")
+			cnt = cnt + UBound(tmp) + 1
+
+			edt = ""
+			For i = 0 To UBound(tmp)
+				
+				edt = edt & Mid(Trim(tmp(i)), 2) & " "
+			Next
+
+			objOutput.WriteText edt & vbCrLf, 0
+
 	'---LDA ----------------------------------------------------------------------------------------------------
 
 		'LDA #$
