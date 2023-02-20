@@ -10,6 +10,7 @@ Const prg = "prg.txt"
 Dim label(100, 2)
 Dim zeroPage(100)
 Dim cDir
+Dim tmp
 
 '↓VBSの場合 ********************************
 Call Main
