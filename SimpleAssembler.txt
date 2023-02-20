@@ -135,12 +135,24 @@ Sub Main()
 		'LDA
 		ElseIf Left(str, 3) = "LDA" Then
 			cnt = cnt + 3
-			zero = getZeroPage(Mid(str, 5))
-			If zero = -1 Then
-				zero = addZeroPage(Mid(str, 5))
+
+			p = Instr(str, ",")
+			If p > 0 Then
+				If Trim(Mid(str, p + 1)) = "X" Then
+
+				Else
+					MsgBox("#" & line & " - unsupported opcode!:" & str)
+				End If
+				objOutput.WriteText Left(str, p - 1) & vbCrLf
+
+			Else
+				zero = getZeroPage(Mid(str, 5))
+				If zero = -1 Then
+					zero = addZeroPage(Mid(str, 5))
+				End If
+				edt = Right("0000" & Hex(zero),4)
+				objOutput.WriteText "AD " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 			End If
-			edt = Right("0000" & Hex(zero),4)
-			objOutput.WriteText "AD " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
 	'---LDX ----------------------------------------------------------------------------------------------------
 
@@ -440,6 +452,10 @@ Sub Main()
 
 		If Instr(str, ":") > 0 Then
 			'ラベルならスルー
+
+		ElseIf Left(str, 4) = "LDA " Then
+			edt = Right("0000" & Hex(getLabel(Mid(str, 5))),4)
+			objOutput.WriteText "BD " & Right(edt, 2) & " " & Left(edt, 2) & " ", 0
 
 		ElseIf Left(str, 4) = "JMP " Then
 			edt = Right("0000" & Hex(getLabel(Mid(str, 5))),4)
