@@ -10,14 +10,13 @@ Const prg = "prg.txt"
 Dim label(100, 2)
 Dim zeroPage(100)
 Dim cDir
-Dim tmp
 
 '↓VBSの場合 ********************************
 Call Main
 
 Sub Main()
 
-	Dim str, edt
+	Dim str, edt, tmp
 	Dim cnt, zero, line
 	Dim i, j, p
 	Dim objInput, objOutput
