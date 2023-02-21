@@ -99,12 +99,9 @@ Sub Main()
 		'.BYTE
 		ElseIf Left(str, 5) = ".BYTE" Then
 			tmp = Split(Trim(Mid(str, 7)), ",")
-			cnt = cnt + UBound(tmp) + 1
-
 			edt = ""
 			For i = 0 To UBound(tmp)
-				
-				edt = edt & Mid(Trim(tmp(i)), 2) & " "
+				edt = edt & txtByte(tmp(i))
 			Next
 
 			objOutput.WriteText edt & vbCrLf, 0
@@ -664,5 +661,39 @@ End Function
 Function CurDirVBA()
 
 	CurDirVBA = ThisWorkbook.Path
+
+End Function
+
+Function txtByte(s)
+
+	Dim edt
+	Dim str
+	Dim i, l
+
+	edt = Trim(s)
+	str = ""
+
+	If Left(edt, 1) = "$" And Len(edt) = 3 Then
+
+		str = str & Mid(edt, 2) & " "
+		cnt = cnt + 1
+
+	Else
+		If Left(edt, 1) = """" And Right(edt, 1) = """" Then
+			l = Len(edt) - 2
+			If l < 1 Then
+				MsgBox("#" & line & " - Empty byte content!:" & s)
+				WScript.Quit
+			End If
+			For i = 1 To l
+				str = str & Right("00" & Hex(Asc(Mid(edt, i + 1, 1))), 2) & " "
+				cnt = cnt + 1
+			Next
+		Else
+			MsgBox("#" & line & " - Error byte content!:" & s)
+			WScript.Quit
+		End If
+	End If
+	txtByte = str
 
 End Function
