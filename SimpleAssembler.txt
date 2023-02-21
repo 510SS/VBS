@@ -376,6 +376,14 @@ Sub Main()
 			cnt = cnt + 1
 			objOutput.WriteText "C8 " & vbCrLf, 0
 
+	'---ORA ----------------------------------------------------------------------------------------------------
+
+		'ORA #%
+		ElseIf Left(str, 6) = "ORA #%" Then
+			cnt = cnt + 2
+			edt = Right(str, 8)
+			objOutput.WriteText "09 " & Right("00" & Bin2Hex(edt), 2) & " " & vbCrLf, 0
+
 	'---JMP ----------------------------------------------------------------------------------------------------
 
 		'JMP
