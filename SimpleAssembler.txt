@@ -374,6 +374,18 @@ Sub Main()
 			cnt = cnt + 1
 			objOutput.WriteText "88 " & vbCrLf, 0
 
+	'---INC ----------------------------------------------------------------------------------------------------
+
+		'INC
+		ElseIf Left(str, 3) = "INC" Then
+			cnt = cnt + 2
+			edt = Right(str, 4)
+			If Left(edt, 2) = "00" Then
+				objOutput.WriteText "E6 " & Right(edt, 2) & " " & vbCrLf, 0
+			Else
+				MsgBox("#" & line & " - unsupported opcode!:" & str)
+			End If
+
 	'---INX ----------------------------------------------------------------------------------------------------
 
 		'INX
