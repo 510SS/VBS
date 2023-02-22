@@ -348,6 +348,18 @@ Sub Main()
 			edt = Right("0000" & Hex(zero),4)
 			objOutput.WriteText "CC " & Right(edt, 2) & " " & Left(edt, 2) & " " & vbCrLf, 0
 
+	'---DEC ----------------------------------------------------------------------------------------------------
+
+		'DEC
+		ElseIf Left(str, 3) = "DEC" Then
+			cnt = cnt + 2
+			edt = Right(str, 4)
+			If Left(edt, 2) = "00" Then
+				objOutput.WriteText "C6 " & Right(edt, 2) & " " & vbCrLf, 0
+			Else
+				MsgBox("#" & line & " - unsupported opcode!:" & str)
+			End If
+
 	'---DEX ----------------------------------------------------------------------------------------------------
 
 		'DEX
