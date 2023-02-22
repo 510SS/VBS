@@ -415,6 +415,13 @@ Sub Main()
 			cnt = cnt + 3
 			objOutput.WriteText str & vbCrLf, 0
 
+	'---JSR ----------------------------------------------------------------------------------------------------
+
+		'JSR
+		ElseIf Left(str, 3) = "JSR" Then
+			cnt = cnt + 3
+			objOutput.WriteText str & vbCrLf, 0
+
 	'---BNE ----------------------------------------------------------------------------------------------------
 
 		'BNE
@@ -505,6 +512,10 @@ Sub Main()
 		ElseIf Left(str, 4) = "JMP " Then
 			edt = Right("0000" & Hex(getLabel(Mid(str, 5))),4)
 			objOutput.WriteText "4C " & Right(edt, 2) & " " & Left(edt, 2) & " ", 0
+
+		ElseIf Left(str, 4) = "JSR " Then
+			edt = Right("0000" & Hex(getLabel(Mid(str, 5))),4)
+			objOutput.WriteText "20 " & Right(edt, 2) & " " & Left(edt, 2) & " ", 0
 
 		ElseIf Left(str, 4) = "BNE " Then
 			p =  Instr(str, "#")
