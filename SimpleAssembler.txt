@@ -18,7 +18,7 @@ Call Main
 
 Sub Main()
 
-	Dim str, edt, tmp
+	Dim str, edt, tmp, moto
 	Dim zero
 	Dim i, j, p
 	Dim objInput, objOutput
@@ -82,6 +82,7 @@ Sub Main()
 		str = Trim(str) 
 
 		'小文字のオペコードにも対応（6502アセンブラでは大文字？）
+		moto = str
 		str = UCase(str)
 
 		'空行はスルー
@@ -98,7 +99,7 @@ Sub Main()
 
 		'.BYTE
 		ElseIf Left(str, 5) = ".BYTE" Then
-			tmp = Split(Trim(Mid(str, 7)), ",")
+			tmp = Split(Trim(Mid(moto, 7)), ",")
 			edt = ""
 			For i = 0 To UBound(tmp)
 				edt = edt & txtByte(tmp(i))
@@ -731,7 +732,7 @@ Function txtByte(s)
 	str = ""
 
 	If Left(edt, 1) = "$" And Len(edt) = 3 Then
-
+		str = UCase(str)
 		str = str & Mid(edt, 2) & " "
 		cnt = cnt + 1
 
