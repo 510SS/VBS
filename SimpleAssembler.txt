@@ -736,6 +736,11 @@ Function txtByte(s)
 		str = str & Mid(edt, 2) & " "
 		cnt = cnt + 1
 
+	ElseIf Left(edt, 1) = "%" And Len(edt) = 9 Then
+		str = UCase(str)
+		str = str & Bin2Hex(Mid(edt, 2)) & " "
+		cnt = cnt + 1
+
 	Else
 		If Left(edt, 1) = """" And Right(edt, 1) = """" Then
 			l = Len(edt) - 2
