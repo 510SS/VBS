@@ -738,7 +738,7 @@ Function txtByte(s)
 
 	ElseIf Left(edt, 1) = "%" And Len(edt) = 9 Then
 		str = UCase(str)
-		str = str & Bin2Hex(Mid(edt, 2)) & " "
+		str = str & Right("00" & Bin2Hex(Mid(edt, 2)), 2) & " "
 		cnt = cnt + 1
 
 	Else
